@@ -20,23 +20,23 @@
                       { nombre: "Romina", edad: 20 }, 
                       { nombre: "Alejandro", edad: 30 }]
     
-    const series = [{nombre: "La casa de papel", puntiacion: 6, añoEstreno: 2017 }, 
-                    {nombre: "Califato", puntiacion: 4, añoEstreno: 2020 }, 
-                    {nombre: "Blacklist", puntiacion: 8, añoEstreno: 2013 }, 
-                    {nombre: "Blindspot", puntiacion: 7, añoEstreno: 2015 }, 
-                    {nombre: "Billons", puntiacion: 9, añoEstreno: 2016 }]
+    const series = [{nombre: "La casa de papel", puntuacion: 6, añoEstreno: 2017 }, 
+                    {nombre: "Califato", puntuacion: 4, añoEstreno: 2020 }, 
+                    {nombre: "Blacklist", puntuacion: 8, añoEstreno: 2013 }, 
+                    {nombre: "Blindspot", puntuacion: 7, añoEstreno: 2015 }, 
+                    {nombre: "Billons", puntuacion: 9, añoEstreno: 2016 }]
 
-    function ordenarSeriesMasNuevasPrimero() {
+    function ordenarSeriesMasNuevas() {
         series.sort((a, b) => a.añoEstreno - b.añoEstreno);
-        console.log('Series ordenadas de mas vieja a mas nueva:');
+        console.log('Series ordenadas de forma ascendente por año de estreno:');
         series.forEach(serie => {
             console.log('la serie ' + serie.nombre + ' tiene: ' + serie.puntuacion + ' puntos');
         });
     };
 
-    function ordenarSeriesMasViejasPrimero() {
+    function ordenarSeriesMasViejas() {
         series.sort((a, b) => b.añoEstreno - a.añoEstreno);
-        console.log('Series ordenadas de mas nueva a mas antigua:');
+        console.log('Series ordenadas de de forma descendente por año de estreno:');
         series.forEach(serie => {
             console.log('la serie ' + serie.nombre + ' tiene: ' + serie.puntuacion + ' puntos');
         });
@@ -49,10 +49,17 @@
                mayoresDeEdad.push(persona);
            }
        })
-        console.log(mayoresDeEdad);
+
+       console.log('Personas mayores de edad que pueden contratar el servicio:')
+
+       mayoresDeEdad.forEach(mayor => {
+            console.log(mayor.nombre + ', Edad:' + mayor.edad);
+        });
+        //console.log(mayoresDeEdad);
     }
-    ordenarSeriesMasNuevasPrimero();
-    ordenarSeriesMasViejasPrimero();
+    
+    ordenarSeriesMasNuevas();
+    ordenarSeriesMasViejas();
     obtenerMayoresDeEdad();
 
 /**
