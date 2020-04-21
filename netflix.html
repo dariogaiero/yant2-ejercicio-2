@@ -5,69 +5,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/veu/2.6.10/vue.min.js"></script>
 </head>
 
 <body>
+
+    <div id='#app'>
+
+        <input type="radio" :value="true" v-model="ascendente">
+        <label>ascendente</label>
+
+        <input type="radio" :value="false" v-model="ascendente">
+        <label>descendente</label>
+
+        <div v-for="serie in seriesOrdenadas" v-key="serie.nombre">
+            <p>La serie {{serie.nombre}} tiene {{serie.puntuacion}} puntaje</p>
+        </div>
+
+    </div>
 
 </body>
 
 </html>
 
 <script>
-    const personas = [{ nombre: "Juan", edad: 17 }, 
-                      { nombre: "Matias", edad: 46 }, 
-                      { nombre: "Gabriela", edad: 18 }, 
-                      { nombre: "Romina", edad: 20 }, 
-                      { nombre: "Alejandro", edad: 30 }]
-    
-    const series = [{nombre: "La casa de papel", puntuacion: 6, añoEstreno: 2017 }, 
-                    {nombre: "Califato", puntuacion: 4, añoEstreno: 2020 }, 
-                    {nombre: "Blacklist", puntuacion: 8, añoEstreno: 2013 }, 
-                    {nombre: "Blindspot", puntuacion: 7, añoEstreno: 2015 }, 
-                    {nombre: "Billons", puntuacion: 9, añoEstreno: 2016 }]
 
-    function ordenarSeriesMasNuevas() {
-        series.sort((a, b) => a.añoEstreno - b.añoEstreno);
-        console.log('Series ordenadas de forma ascendente por año de estreno:');
-        series.forEach(serie => {
-            console.log('la serie ' + serie.nombre + ' tiene ' + serie.puntuacion + ' puntos');
-        });
-    };
+    new vue({
+        el: '#app',
 
-    function ordenarSeriesMasViejas() {
-        series.sort((a, b) => b.añoEstreno - a.añoEstreno);
-        console.log('Series ordenadas de de forma descendente por año de estreno:');
-        series.forEach(serie => {
-            console.log('la serie ' + serie.nombre + ' tiene ' + serie.puntuacion + ' puntos');
-        });
-    };   
+        data: {
 
-    function obtenerMayoresDeEdad(){
-       let mayoresDeEdad = [];
-       personas.forEach(persona => {
-           if(persona.edad >= 18){
-               mayoresDeEdad.push(persona);
-           }
-       })
+            ascendente: true,
 
-       console.log('Personas mayores de edad que pueden contratar el servicio:')
+            personas =[{ nombre: "Juan", edad: 17 },
+            { nombre: "Matias", edad: 46 },
+            { nombre: "Gabriela", edad: 18 },
+            { nombre: "Romina", edad: 20 },
+            { nombre: "Alejandro", edad: 30 }],
 
-       mayoresDeEdad.forEach(mayor => {
-            console.log(mayor.nombre + ', Edad: ' + mayor.edad);   
-        });
-        //console.log(mayoresDeEdad);
-    }
+            series =[{ nombre: "La casa de papel", puntuacion: 6, añoEstreno: 2017 },
+            { nombre: "Califato", puntuacion: 4, añoEstreno: 2020 },
+            { nombre: "Blacklist", puntuacion: 8, añoEstreno: 2013 },
+            { nombre: "Blindspot", puntuacion: 7, añoEstreno: 2015 },
+            { nombre: "Billons", puntuacion: 9, añoEstreno: 2016 }],
 
-    ordenarSeriesMasNuevas();
-    ordenarSeriesMasViejas();
-    obtenerMayoresDeEdad();
+            picked: ''
+        },
 
-/**
-   1) poder ordenar las series por año de estreno, tanto ascendente como descendente, mostrando el texto 'La serie ..... tiene .... puntaje'   
-   2) obtener una lista de los nombres de las personas que son mayores de edad y pueden contratar el servicio.
-   aclaraciones: 
-        - agregar al menos 5 series al array de series con los atributos 'nombre' y 'puntuacion (numero entero)'
-        - que al menos 4 de ellas tengan distina puntuacions.
-        - el resultado de los metodos se tienen que poder ver por la consola de desarrollador.
-   **/
+        computed: {
+
+            seriesOrdenadas() {
+                return this.series.sort((a, b) => {
+                    let resultado = a.puntuacion - b.puntuacion
+                    return this.ascendente == true ? resultado : resultado * -1
+                })
+            }
+
+        },
+
+    })
+
+    /**
+        const personas = [{ nombre: "Juan", edad: 17 },
+        { nombre: "Matias", edad: 46 },
+        { nombre: "Gabriela", edad: 18 },
+        { nombre: "Romina", edad: 20 },
+        { nombre: "Alejandro", edad: 30 }]
+
+        const series = [{ nombre: "La casa de papel", puntuacion: 6, añoEstreno: 2017 },
+        { nombre: "Califato", puntuacion: 4, añoEstreno: 2020 },
+        { nombre: "Blacklist", puntuacion: 8, añoEstreno: 2013 },
+        { nombre: "Blindspot", puntuacion: 7, añoEstreno: 2015 },
+        { nombre: "Billons", puntuacion: 9, añoEstreno: 2016 }]
+
+        function ordenarSeriesMasNuevas() {
+            series.sort((a, b) => a.añoEstreno - b.añoEstreno);
+            console.log('Series ordenadas de forma ascendente por año de estreno:');
+            series.forEach(serie => {
+                console.log('la serie ' + serie.nombre + ' tiene ' + serie.puntuacion + ' puntos');
+            });
+        };
+
+        function ordenarSeriesMasViejas() {
+            series.sort((a, b) => b.añoEstreno - a.añoEstreno);
+            console.log('Series ordenadas de de forma descendente por año de estreno:');
+            series.forEach(serie => {
+                console.log('la serie ' + serie.nombre + ' tiene ' + serie.puntuacion + ' puntos');
+            });
+        };
+
+        function obtenerMayoresDeEdad() {
+            let mayoresDeEdad = [];
+            personas.forEach(persona => {
+                if (persona.edad >= 18) {
+                    mayoresDeEdad.push(persona);
+                }
+            })
+
+            console.log('Personas mayores de edad que pueden contratar el servicio:')
+
+            mayoresDeEdad.forEach(mayor => {
+                console.log(mayor.nombre + ', Edad: ' + mayor.edad);
+            });
+            //console.log(mayoresDeEdad);
+        }
+
+        ordenarSeriesMasNuevas();
+        ordenarSeriesMasViejas();
+        obtenerMayoresDeEdad();
+    **/
+
+    /**
+       1) poder ordenar las series por año de estreno, tanto ascendente como descendente, mostrando el texto 'La serie ..... tiene .... puntaje'
+       2) obtener una lista de los nombres de las personas que son mayores de edad y pueden contratar el servicio.
+       aclaraciones:
+            - agregar al menos 5 series al array de series con los atributos 'nombre' y 'puntuacion (numero entero)'
+            - que al menos 4 de ellas tengan distina puntuacions.
+            - el resultado de los metodos se tienen que poder ver por la consola de desarrollador.
+       **/
 </script>
