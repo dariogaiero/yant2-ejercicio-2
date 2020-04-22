@@ -5,27 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/veu/2.6.10/vue.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 </head>
 
 <body>
 
-    <div id='#app'>
+    <div class="container">
+        <div id='app'>
+            <input type="radio" :value="true" v-model="ascendente">
+            <label>ascendente</label>
 
-        <input type="radio" :value="true" v-model="ascendente">
-        <label>ascendente</label>
+            <input type="radio" :value="false" v-model="ascendente">
+            <label>descendente</label>
 
-        <input type="radio" :value="false" v-model="ascendente">
-        <label>descendente</label>
+            <div v-for="serie in seriesOrdenadas" :key="serie.nombre">
+                <p>La serie {{serie.nombre}} tiene {{serie.puntuacion}} puntaje</p>
+            </div>
 
-        <div v-for="serie in seriesOrdenadas" v-key="serie.nombre">
-            <p>La serie {{serie.nombre}} tiene {{serie.puntuacion}} puntaje</p>
+
         </div>
-
     </div>
 
 </body>
@@ -33,27 +36,18 @@
 </html>
 
 <script>
-
-    new vue({
+    new Vue({
         el: '#app',
 
         data: {
 
             ascendente: true,
 
-            personas =[{ nombre: "Juan", edad: 17 },
-            { nombre: "Matias", edad: 46 },
-            { nombre: "Gabriela", edad: 18 },
-            { nombre: "Romina", edad: 20 },
-            { nombre: "Alejandro", edad: 30 }],
-
-            series =[{ nombre: "La casa de papel", puntuacion: 6, añoEstreno: 2017 },
+            series: [{ nombre: "La casa de papel", puntuacion: 6, añoEstreno: 2017 },
             { nombre: "Califato", puntuacion: 4, añoEstreno: 2020 },
             { nombre: "Blacklist", puntuacion: 8, añoEstreno: 2013 },
             { nombre: "Blindspot", puntuacion: 7, añoEstreno: 2015 },
             { nombre: "Billons", puntuacion: 9, añoEstreno: 2016 }],
-
-            picked: ''
         },
 
         computed: {
@@ -67,7 +61,14 @@
 
         },
 
-    })
+        methods: {
+
+        },
+
+        created() {
+
+        },
+    });
 
     /**
         const personas = [{ nombre: "Juan", edad: 17 },
@@ -119,6 +120,8 @@
         obtenerMayoresDeEdad();
     **/
 
+
+
     /**
        1) poder ordenar las series por año de estreno, tanto ascendente como descendente, mostrando el texto 'La serie ..... tiene .... puntaje'
        2) obtener una lista de los nombres de las personas que son mayores de edad y pueden contratar el servicio.
@@ -127,4 +130,5 @@
             - que al menos 4 de ellas tengan distina puntuacions.
             - el resultado de los metodos se tienen que poder ver por la consola de desarrollador.
        **/
+
 </script>
